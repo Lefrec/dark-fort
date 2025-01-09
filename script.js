@@ -6,6 +6,7 @@ new_catacomb();
 //génère l'entrée d'une nouvelle catacombe (pas le stuff de kargunt etc)
 function new_catacomb() {
     //créer l'entrée
+    currentRoom = 0;
     let entranceRoom = {
         index: 0,
         explored: false,
@@ -18,18 +19,28 @@ function new_catacomb() {
         let newRoom = {
             index: i,
             explored: false,
-            adjacent: [],
+            adjacent: [0],
         }
         room[0].adjacent.push(i);
         room[i] = newRoom;
     }
-    currentRoom = 0;
     update_doors();
     update_html();
 }
 
 function enter_room(index) {
-
+    currentRoom = index;
+    for (let i = 0; i <roll_doors(); i++){
+        let newRoom = {
+            index: room.length,
+            explored: false,
+            adjacent: [index],
+        }
+        room[index].adjacent.push(room.length);
+        room.push(newRoom);
+    }
+    update_doors();
+    update_html();
 }
 
 //créer les boutons qui mène aux salles adjacentes
@@ -59,4 +70,12 @@ function update_html() {
 //renvoie un entier entre 1 et max
 function roll(max) {
     return Math.ceil(Math.random() * (max));
+}
+
+//renvoie 0, 1 ou 2 sur un D4
+function roll_doors() {
+    let roll = Math.ceil(Math.random() * (4));
+    if (roll == 1) return 0;
+    if (roll == 2) return 1;
+    if (roll == 3 || roll === 4) return 2;
 }
