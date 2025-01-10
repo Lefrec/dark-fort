@@ -1,5 +1,3 @@
-var mainText = document.getElementById("main_text");
-
 //système de navigation
 var room;
 var currentRoom;
@@ -7,8 +5,6 @@ var currentRoom;
 spawnKargunt();
 
 function spawnKargunt() {
-    mainText.innerText = "The catacombs rogue enters the stage !";
-    
     new_catacomb();
 }
 
@@ -35,8 +31,7 @@ function new_catacomb() {
         room[0].adjacent.push(i);
         room[i] = newRoom;
     }
-    update_doors();
-    update_html();
+    update_room_html();
 }
 
 function enter_room(index) {
@@ -55,29 +50,23 @@ function enter_room(index) {
         }
         room[currentRoom].visited = true;
     }
-    update_doors();
-    update_html();
-}
-
-//créer les boutons qui mène aux salles adjacentes
-function update_doors() {
-    let doorContainer = document.getElementById("doors_buttons_container");
-    doorContainer.innerHTML = "";
-    for (let i = 0; i < room[currentRoom].adjacent.length; i++) {
-        let roomIndex = room[currentRoom].adjacent[i];
-        let door = document.createElement("button");
-        door.textContent = `Enter room ${roomIndex} (${room[currentRoom].explored ? "explored" : "unexplored"})`;
-        door.id = `door${roomIndex}`;
-        door.onclick = () => enter_room(roomIndex);
-        doorContainer.appendChild(door);
-    }
+    update_room_html();
 }
 
 //change les quelques infos dans l'html
-function update_html() {
-    document.getElementById("current_room").textContent = room[currentRoom].index;
-    document.getElementById("is_it_explored").textContent = room[currentRoom].explored;
-    document.getElementById("adjacent_rooms").textContent = room[currentRoom].adjacent;
+function update_room_html() {
+    document.getElementById("room__desc").innerHTML = room[currentRoom].index;
+
+    let doors = document.getElementById("doors");
+    doors.innerHTML = "";
+    for (let i = 0; i < room[currentRoom].adjacent.length; i++) {
+        let roomIndex = room[currentRoom].adjacent[i];
+        let door = document.createElement("button");
+        door.textContent = `Enter room ${room[roomIndex].visited ? roomIndex : "?"} (${room[currentRoom].explored ? "explored" : "unexplored"})`;
+        door.id = `door${roomIndex}`;
+        door.onclick = () => enter_room(roomIndex);
+        doors.appendChild(door);
+    }
 }
 
 

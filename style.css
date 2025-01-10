@@ -1,15 +1,38 @@
 @font-face {
-    font-family: "blackletter";
-    src: url(BLACH___.TTF) format("truetype");
+    font-family: "Blackletter";
+    src: url(BLACH___.TTF);
 }
 
-body{
+@font-face {
+    font-family: "Typewriter";
+    src: url(JMH\ Typewriter.otf);
+}
+
+
+*{
+    background-color: black;
+    color: white;
+    font-family: "Typewriter", serif;
+}
+
+html,body{
+    margin: 0;
+    height: 100%;
+}
+
+#room{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100%;
+    padding: 20px;
 }
 
-#main_text{
-    font-size: 32px;
-    font-family: "blackletter", serif;
+#room__info{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#room__desc{
+    font-size: 20px;
 }
