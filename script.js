@@ -9,6 +9,7 @@ function new_catacomb() {
     currentRoom = 0;
     let entranceRoom = {
         index: 0,
+        visited: true,
         explored: false,
         adjacent: [],
     }
@@ -18,6 +19,7 @@ function new_catacomb() {
     for (let i = 1; i <= doorNumber; i++) {
         let newRoom = {
             index: i,
+            visited: false,
             explored: false,
             adjacent: [0],
         }
@@ -30,14 +32,19 @@ function new_catacomb() {
 
 function enter_room(index) {
     currentRoom = index;
-    for (let i = 0; i <roll_doors(); i++){
-        let newRoom = {
-            index: room.length,
-            explored: false,
-            adjacent: [index],
+    //si la room n'a jamais été visité on génère les salles adjacentes
+    if (room[currentRoom].visited == false) {
+        for (let i = 0; i <roll_doors(); i++){
+            let newRoom = {
+                index: room.length,
+                visited: false,
+                explored: false,
+                adjacent: [index],
+            }
+            room[index].adjacent.push(room.length);
+            room.push(newRoom);
         }
-        room[index].adjacent.push(room.length);
-        room.push(newRoom);
+        room[currentRoom].visited = true;
     }
     update_doors();
     update_html();
