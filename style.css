@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "blackletter";
+    src: url(BLACH___.TTF) format("truetype");
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main_text{
+    font-size: 32px;
+    font-family: "blackletter", serif;
+}

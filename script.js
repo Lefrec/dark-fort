@@ -1,7 +1,16 @@
+var mainText = document.getElementById("main_text");
+
+//système de navigation
 var room;
 var currentRoom;
 
-new_catacomb();
+spawnKargunt();
+
+function spawnKargunt() {
+    mainText.innerText = "The catacombs rogue enters the stage !";
+    
+    new_catacomb();
+}
 
 //génère l'entrée d'une nouvelle catacombe (pas le stuff de kargunt etc)
 function new_catacomb() {
@@ -85,4 +94,8 @@ function roll_doors() {
     if (roll == 1) return 0;
     if (roll == 2) return 1;
     if (roll == 3 || roll === 4) return 2;
+}
+
+function wait(s) {
+    await 
 }
